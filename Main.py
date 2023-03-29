@@ -8,11 +8,11 @@ if __name__ == "__main__":
     POPULATION_COUNT    = 200
     SEED                = 5693
     PUNISHMENTS         = [100, 10, 1, 1000, 500] # bobot hukuman [w1, w2, w3, w4, w5]
-    w1 = 0 # lampu nabrak
-    w2 = 0 # ga sesuai sama angka di petak hitam
-    w3 = 0 # petak putih ga nyala
-    w4 = 0 # petak putih yang dikelilingi petak hitam ga diisi lampu
-    w5 = 0 # jumlah 
+    W3 = [1, 2] # petak putih ga nyala -- base
+    W1 = [2, 5, 10, 100] # lampu nabrak
+    W2 = [2, 5, 10, 100] # ga sesuai sama angka di petak hitam
+    W4 = [2, 5, 10, 100] # petak putih yang dikelilingi petak hitam ga diisi lampu
+    W5 = [2, 5, 10, 100] # kalo ada lampu yang ga diletakkin di sekeliling petak hitam 3 di tepi, dan 2 di ujung
     EPOCH               = 200
     RANK_PERCENTAGE     = 0.15
     dataset = ['7_easy', '7_normal', '7_hard',
@@ -21,7 +21,7 @@ if __name__ == "__main__":
                '25_easy', '25_normal', '25_hard',
                '30_daily', '30_weekly', '40_monthly']
     
-    dataset_to_test = [0, 1, 2]
+    dataset_to_test = [0]
     num_of_board_want_to_test = 1
     num_of_experiment_per_board = 1
 
@@ -50,11 +50,18 @@ if __name__ == "__main__":
                 for preproc in preprocessing:
                     for p in population:
                         for r in rank:
-                            game = Game(p, SEED, PUNISHMENTS, EPOCH, board)
-                            answer = game.startExperiment(encode, int(p * r), preproc)
-                            result = [dataset[i], j, encode, preproc, p, r, answer.fitness]
-                            print (result)
-                            final_result.append(result)
+                            for w3 in W3:
+                                for w1 in W1:
+                                    for w2 in W2:
+                                        for w4 in W4:
+                                            for w5 in W5:
+                                                PUNISHMENTS = [w1*w3, w2*w3, w3, w4*w3, w5*w3]
+                                                print (PUNISHMENTS)
+                                                game = Game(p, SEED, PUNISHMENTS, EPOCH, board)
+                                                answer = game.startExperiment(encode, int(p * r), preproc)
+                                                result = [dataset[i], j, encode, preproc, p, r, answer.fitness]
+                                                print (result)
+                                                final_result.append(result)
     
     table = tabulate(final_result, headers=headers, tablefmt='latex')
     now = datetime.datetime.now()
