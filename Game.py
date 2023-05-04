@@ -1,7 +1,6 @@
 # A game played on one board -- with mutiple wolf in that board, all parameters adjusted here.
 # A game has: wolf orders
 
-import pickle
 import numpy as np
 import random
 from Wolf import Wolf
@@ -45,7 +44,6 @@ class Game:
                 #print (answer.board.board)
                 break
         return answer
-        
 
     def firstGWO (self, maxBlack, blackPosition, board):
         population = []

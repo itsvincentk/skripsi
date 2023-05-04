@@ -1,0 +1,254 @@
+[200]
+[0.15]
+Dataset 7_easy
+Board ke-0
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['7_easy', 0, 'SINGLE_WHITE', False, 200, 0.15, 2]
+BERES
+
+Board ke-1
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['7_easy', 1, 'SINGLE_WHITE', False, 200, 0.15, 0]
+BERES
+
+Board ke-2
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['7_easy', 2, 'SINGLE_WHITE', False, 200, 0.15, 0]
+BERES
+
+Dataset 7_normal
+Board ke-0
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['7_normal', 0, 'SINGLE_WHITE', False, 200, 0.15, 0]
+BERES
+
+Board ke-1
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['7_normal', 1, 'SINGLE_WHITE', False, 200, 0.15, 0]
+BERES
+
+Board ke-2
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['7_normal', 2, 'SINGLE_WHITE', False, 200, 0.15, 6]
+BERES
+
+Dataset 7_hard
+Board ke-0
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['7_hard', 0, 'SINGLE_WHITE', False, 200, 0.15, 0]
+BERES
+
+Board ke-1
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['7_hard', 1, 'SINGLE_WHITE', False, 200, 0.15, 1]
+BERES
+
+Board ke-2
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['7_hard', 2, 'SINGLE_WHITE', False, 200, 0.15, 2]
+BERES
+
+Dataset 10_easy
+Board ke-0
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['10_easy', 0, 'SINGLE_WHITE', False, 200, 0.15, 18]
+BERES
+
+Board ke-1
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['10_easy', 1, 'SINGLE_WHITE', False, 200, 0.15, 21]
+BERES
+
+Board ke-2
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['10_easy', 2, 'SINGLE_WHITE', False, 200, 0.15, 12]
+BERES
+
+Dataset 10_normal
+Board ke-0
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['10_normal', 0, 'SINGLE_WHITE', False, 200, 0.15, 20]
+BERES
+
+Board ke-1
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['10_normal', 1, 'SINGLE_WHITE', False, 200, 0.15, 11]
+BERES
+
+Board ke-2
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['10_normal', 2, 'SINGLE_WHITE', False, 200, 0.15, 33]
+BERES
+
+Dataset 10_hard
+Board ke-0
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['10_hard', 0, 'SINGLE_WHITE', False, 200, 0.15, 45]
+BERES
+
+Board ke-1
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['10_hard', 1, 'SINGLE_WHITE', False, 200, 0.15, 38]
+BERES
+
+Board ke-2
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['10_hard', 2, 'SINGLE_WHITE', False, 200, 0.15, 51]
+BERES
+
+Dataset 14_easy
+Board ke-0
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['14_easy', 0, 'SINGLE_WHITE', False, 200, 0.15, 38]
+BERES
+
+Board ke-1
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['14_easy', 1, 'SINGLE_WHITE', False, 200, 0.15, 46]
+BERES
+
+Board ke-2
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['14_easy', 2, 'SINGLE_WHITE', False, 200, 0.15, 34]
+BERES
+
+Dataset 14_normal
+Board ke-0
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['14_normal', 0, 'SINGLE_WHITE', False, 200, 0.15, 56]
+BERES
+
+Board ke-1
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['14_normal', 1, 'SINGLE_WHITE', False, 200, 0.15, 148]
+BERES
+
+Board ke-2
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['14_normal', 2, 'SINGLE_WHITE', False, 200, 0.15, 93]
+BERES
+
+Dataset 14_hard
+Board ke-0
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['14_hard', 0, 'SINGLE_WHITE', False, 200, 0.15, 35]
+BERES
+
+Board ke-1
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['14_hard', 1, 'SINGLE_WHITE', False, 200, 0.15, 100]
+BERES
+
+Board ke-2
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['14_hard', 2, 'SINGLE_WHITE', False, 200, 0.15, 42]
+BERES
+
