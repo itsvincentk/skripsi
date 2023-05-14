@@ -19,15 +19,23 @@ class Game:
         self.seed = seed
         self.board = Board(board)
         random.seed(seed)
-        np.random.seed = seed
+        np.random.seed(seed)
         self.punishments = punishments
         self.epoch = epoch
 
    
     def startExperiment (self, encodingType, rankNumber, preprocStatus):
-        maxBlack, blackPosition, whitePosition = self.board.countEncodingDimension(preprocStatus)
-        firstAlpha = self.firstGWO(maxBlack, blackPosition, self.board.board)
-        firstAlpha = firstAlpha[:rankNumber]
+        # preproc
+        if (preprocStatus):
+            #print (self.board.board)
+            self.board.preProcZero()
+            #print (self.board.board)
+            while (self.board.preProc()): continue
+        maxBlack, blackPosition, whitePosition = self.board.countEncodingDimension()
+        firstAlpha, status = self.firstGWO(maxBlack, blackPosition, self.board.board)
+        if (status): firstAlpha = firstAlpha[:rankNumber]
+        #print ("AAAAA")
+        #print (firstAlpha[0].board.board)
         answer = None
         max = 2**31 - 1
         for wolf in firstAlpha:
@@ -43,9 +51,13 @@ class Game:
                 #print (answer.fitness)
                 #print (answer.board.board)
                 break
+        print (answer.board.board)
         return answer
 
     def firstGWO (self, maxBlack, blackPosition, board):
+        #print (blackPosition, "\n")
+        if (blackPosition.size == 0):
+            return [Wolf(board, self.seed, self.punishments)], False
         population = []
         # create wolf population
         for _ in range (self.populationCount):
@@ -90,9 +102,11 @@ class Game:
             # print (alpha.fitness)
         #print (alpha.board.board)
         #print (alpha.fitness)
-        return population
+        #print ("A")
+        return population, True
 
     def secondGWO (self, whitePosition, board):
+        #print (whitePosition.shape[0], "\n")
         population = []
         # create wolf population
         for _ in range (self.populationCount):
@@ -110,7 +124,10 @@ class Game:
         a = 2 # var 'a' from GWO algorithm
         for i in range (self.epoch):
             for wolf in population:
+                # linear decrease of 'a' from 2 to 0
+                a = 2 - (i/self.epoch)*2
                 thisPosition = wolf.whitePosition
+                #if (thisPosition[-2] == 1): print (thisPosition)
                 A1 = 2 * a * np.random.sample(size=dimension) - a
                 A2 = 2 * a * np.random.sample(size=dimension) - a
                 A3 = 2 * a * np.random.sample(size=dimension) - a
@@ -120,17 +137,31 @@ class Game:
                 X1 = alpha.whitePosition - A1 * abs(C1 * alpha.whitePosition - thisPosition)
                 X2 = beta.whitePosition - A2 * abs(C2 * beta.whitePosition - thisPosition)
                 X3 = delta.whitePosition - A3 * abs(C3 * delta.whitePosition - thisPosition)
+                
                 newPosition = (X1 + X2 + X3) / 3.0
+                # print ("....")
+                # print (a)
+                # print (A1)
+                # print (A2)
+                # print (A3)
+                # print (C1)
+                # print (C2)
+                # print (C3)
+                # print (X1)
+                # print (X2)
+                # print (X3)
+                # print (newPosition)
+                # print ("....")
+                
                 newPosition = newPosition % 2
                 newPosition = np.round(newPosition).astype(int)
+                print (newPosition)
                 wolf.updatePosition(newPosition, Board.WHITE_LAMP)
             population.sort(key = lambda wolf : wolf.fitness)
             # update the new alpha, beta, and delta
             alpha = population[0]
             beta = population[1]
             delta = population[2]
-            # linear decrease of 'a' from 2 to 0
-            a -= i/self.epoch
             if (alpha.fitness < 1):
                 break
         #print (alpha.board.board)

@@ -46,8 +46,8 @@ class Board:
     def putBlackLamps (self, position):
         # move = [[1, 0, -1, 0],[0, 1, 0, -1]] # x, y
         for i, black in enumerate (self.blackPosition):
-            rowPos = black[0][0]
-            colPos = black[1][0]
+            rowPos = black[0]
+            colPos = black[1]
             if (self.board[rowPos][colPos] == Cell.BLACK_ONE):
                 if (position[i] == 0):
                     self.putSingleLamp(rowPos, colPos+1)
@@ -101,8 +101,8 @@ class Board:
 
     def putWhiteLamps (self, position):
         for i, white in enumerate (self.whitePosition):
-            rowPos = white[0][0]
-            colPos = white[1][0]
+            rowPos = white[0]
+            colPos = white[1]
             if (position[i] == 1):
                 self.putSingleLamp(rowPos, colPos)
 
@@ -174,8 +174,8 @@ class Board:
         if (rowPos < 0 or rowPos >= self.rowSize or colPos < 0 or colPos >= self.colSize):
             return False
     
-        if (self.board[rowPos][colPos] == Cell.LAMP or self.board[rowPos][colPos] <= Cell.BLACK_ANY or self.board[rowPos][colPos] == Cell.FORBIDDEN):
-            return
+        if (self.board[rowPos][colPos] == Cell.LAMP or self.board[rowPos][colPos] <= Cell.BLACK_ANY or self.board[rowPos][colPos] >= Cell.FORBIDDEN):
+            return False
         
         # put lamp on position
         if (self.board[rowPos][colPos] == Cell.YELLOW):
@@ -186,7 +186,7 @@ class Board:
         # light rightside
         for i in range (colPos+1, self.colSize):
             if (i >= 0 and i < self.colSize):
-                if (self.board[rowPos][i] <= Cell.BLACK_ANY):
+                if (self.board[rowPos][i] <= Cell.BLACK_ANY or self.board[rowPos][i] > Cell.FORBIDDEN):
                     break
                 elif (self.board[rowPos][i] == Cell.WHITE_EMPTY or self.board[rowPos][i] == Cell.FORBIDDEN):
                     self.board[rowPos][i] = Cell.YELLOW
@@ -196,7 +196,7 @@ class Board:
         # light leftside
         for i in range (colPos-1, -1, -1):
             if (i >= 0 and i < self.colSize):
-                if (self.board[rowPos][i] <= Cell.BLACK_ANY):
+                if (self.board[rowPos][i] <= Cell.BLACK_ANY or self.board[rowPos][i] > Cell.FORBIDDEN):
                     break
                 elif (self.board[rowPos][i] == Cell.WHITE_EMPTY or self.board[rowPos][i] == Cell.FORBIDDEN):
                     self.board[rowPos][i] = Cell.YELLOW
@@ -206,7 +206,7 @@ class Board:
         # light downside
         for i in range (rowPos+1, self.rowSize):
             if (i >= 0 and i < self.rowSize):
-                if (self.board[i][colPos] <= Cell.BLACK_ANY):
+                if (self.board[i][colPos] <= Cell.BLACK_ANY or self.board[rowPos][i] > Cell.FORBIDDEN):
                     break
                 elif (self.board[i][colPos] == Cell.WHITE_EMPTY or self.board[i][colPos] == Cell.FORBIDDEN):
                     self.board[i][colPos] = Cell.YELLOW
@@ -216,7 +216,7 @@ class Board:
         # light upside
         for i in range (rowPos-1, -1, -1):
             if (i >= 0 and i < self.rowSize):
-                if (self.board[i][colPos] <= Cell.BLACK_ANY):
+                if (self.board[i][colPos] <= Cell.BLACK_ANY or self.board[rowPos][i] > Cell.FORBIDDEN):
                     break
                 elif (self.board[i][colPos] == Cell.WHITE_EMPTY or self.board[i][colPos] == Cell.FORBIDDEN):
                     self.board[i][colPos] = Cell.YELLOW
@@ -224,7 +224,7 @@ class Board:
                     self.board[i][colPos] = Cell.COLLISION
 
     # find all black 1--4 coordinates, maxCombinationOnBlack
-    def countEncodingDimension (self, preprocStatus):
+    def countEncodingDimension (self):
         movement = [[0, 1, 0, -1], [1, 0, -1, 0]]
         maxBlack = []
         blackPosition = []
@@ -233,7 +233,7 @@ class Board:
             for j in range (self.colSize):
                 # get all black 1--4
                 if (self.board[i][j] <= Cell.BLACK_FOUR and self.board[i][j] > Cell.BLACK_ZERO):
-                    blackPosition.append([[i],[j]])
+                    blackPosition.append([i, j])
                     # max combination number on black 1--4
                     if (self.board[i][j] == Cell.BLACK_ONE):
                         maxBlack.append(3)
@@ -252,18 +252,47 @@ class Board:
                             if (self.board[nextRow][nextCol] <= Cell.BLACK_FOUR):
                                 check = False
                     if (check):
-                            whitePosition.append([[i],[j]])
-                elif (self.board[i][j] == Cell.BLACK_ZERO and preprocStatus):
-                    for k in range (4):
-                         nextRow = i + movement[0][k]
-                         nextCol = j + movement[1][k]
-                         if (nextRow >= 0 and nextCol >= 0 and nextRow < self.rowSize and nextCol < self.colSize):
-                             self.board[nextRow][nextCol] = Cell.FORBIDDEN
-
+                            whitePosition.append([i, j])
         maxBlack = np.array(maxBlack)
         blackPosition = np.array(blackPosition)
         whitePosition = np.array(whitePosition)
         return maxBlack, blackPosition, whitePosition
+    
+    def preProcZero (self):
+        movement = [[0, 1, 0, -1], [1, 0, -1, 0]]
+        for i in range (self.rowSize):
+            for j in range (self.colSize):
+                if (self.board[i][j] == Cell.BLACK_ZERO):
+                    for k in range (4):
+                         nextRow = i + movement[0][k]
+                         nextCol = j + movement[1][k]
+                         if (nextRow >= 0 and nextCol >= 0 and nextRow < self.rowSize and nextCol < self.colSize):
+                             if (self.board[nextRow][nextCol] == Cell.WHITE_EMPTY):
+                                self.board[nextRow][nextCol] = Cell.FORBIDDEN
+
+    def preProc (self):
+        movement = [[0, 1, 0, -1], [1, 0, -1, 0]]
+        check = False
+        for i in range (self.rowSize):
+            for j in range (self.colSize):
+                if (self.board[i][j] <= Cell.BLACK_FOUR and self.board[i][j] > Cell.BLACK_ZERO):
+                    countWhite = 0
+                    whitePosition = []
+                    for k in range (4):
+                        nextRow = i + movement[0][k]
+                        nextCol = j + movement[1][k]
+                        if (nextRow >= 0 and nextCol >= 0 and nextRow < self.rowSize and nextCol < self.colSize):
+                            if (self.board[nextRow][nextCol] == Cell.WHITE_EMPTY):
+                                countWhite += 1
+                                whitePosition.append([nextRow, nextCol])
+                    if (countWhite == self.board[i][j]):
+                        check = True
+                        for white in whitePosition:
+                            self.putSingleLamp(white[0], white[1])
+                        self.board[i][j] *= 100
+                        #print (self.board, '\n')
+        
+        return check
     
     def getWhites (self):
         movement = [[0, 1, 0, -1], [1, 0, -1, 0]]
@@ -279,7 +308,7 @@ class Board:
                             if (self.board[nextRow][nextCol] <= Cell.BLACK_FOUR):
                                 check = False
                     if (check):
-                            whitePosition.append([[i],[j]])
+                            whitePosition.append([i, j])
         whitePosition = np.array(whitePosition)
         return whitePosition
     

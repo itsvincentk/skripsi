@@ -1,0 +1,30 @@
+[200]
+[0.15]
+Dataset 7_easy
+Board ke-0
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['7_easy', 0, 'SINGLE_WHITE', False, 200, 0.15, 0]
+BERES
+
+Board ke-1
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['7_easy', 1, 'SINGLE_WHITE', False, 200, 0.15, 0]
+BERES
+
+Board ke-2
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: False
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['7_easy', 2, 'SINGLE_WHITE', False, 200, 0.15, 0]
+BERES
+

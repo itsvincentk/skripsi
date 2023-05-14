@@ -1,0 +1,12 @@
+[200]
+[0.15]
+Dataset 10_easy
+Board ke-1
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: True
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+['10_easy', 1, 'SINGLE_WHITE', True, 200, 0.15, 1]
+BERES
+
