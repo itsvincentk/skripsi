@@ -39,3 +39,6 @@ class Wolf:
             self.whitePosition = newPosition
         self.board.updateBoard(newPosition, lampType)
         self.fitness = self.board.updateFitness(self.punishment)
+
+    def updateFitness (self):
+        self.fitness = self.board.updateFitness(self.punishment)

@@ -1,0 +1,55 @@
+[200]
+[0.15]
+[200]
+[0.15]
+Dataset 10_normal
+Dataset 10_normal
+Board ke-0
+Board ke-0
+Tipe encoding: SINGLE_WHITE
+Tipe encoding: SINGLE_WHITE
+Tipe preproc: True
+Tipe preproc: True
+Angka populasi: 200
+Angka populasi: 200
+Rank yang digunakan: 0.15
+Rank yang digunakan: 0.15
+Bobot hukuman: [5, 10, 1, 100, 100]
+Bobot hukuman: [5, 10, 1, 100, 100]
+preproc selesai 
+
+first gwo selesai 
+
+15
+[[ 8  7  8  8  8  8  8  8  8  8]
+ [ 7  2  6  5  8  5  5  7  1  8]
+ [ 8  8  8  8  7  8  5  8 10  8]
+ [ 8  5  2  7  8  8  8  8  0  8]
+ [ 8  2  9  8  8  8  8  8  8  8]
+ [ 8  7  8  8  8  8  8  8  5  8]
+ [ 8  5  8  8  8  8 10  0  1  7]
+ [ 8  7  8  5  8  8  6  8  6  8]
+ [ 8  2  9  1  0  8  1  7  1  8]
+ [ 8  8  8  8  8  7  8  8  8  8]]
+21
+[[ 8  7  8  8  8  8  8  8  8  8]
+ [ 8  2  7  5  8  5  5  7  1  8]
+ [ 8  8  8  8  7  8  5  8 10  8]
+ [ 8  5  2  7  8  8  8  8  0  8]
+ [ 7  2  9  8  8  8  8  8  8  8]
+ [ 8  8  8  8  8  8  7  8  5  8]
+ [ 8  5  8  8  8  8  8  0  1  7]
+ [ 8  7  8  5  8  7  8  8  8  8]
+ [ 8  2  9  1  0  8  1  7  1  8]
+ [ 8  8  8  8  8  8  8  8  7  8]]
+31
+[[8 7 8 8 8 8 8 8 8 8]
+ [8 2 9 5 7 5 5 8 1 8]
+ [8 8 9 8 8 8 5 7 8 8]
+ [8 5 2 8 8 7 8 8 0 8]
+ [8 2 7 8 8 8 8 8 8 8]
+ [8 7 8 8 8 8 8 8 5 8]
+ [8 5 8 7 8 8 8 0 1 7]
+ [8 7 8 5 8 8 7 8 8 8]
+ [7 2 8 1 0 8 1 6 1 8]
+ [8 8 8 8 8 8 8 8 7 8]]

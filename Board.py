@@ -127,18 +127,13 @@ class Board:
                         if (nextRow >= 0 and nextCol >= 0 and nextRow < self.rowSize and nextCol < self.colSize):
                             if (self.board[nextRow][nextCol] > Cell.BLACK_ANY):
                                 check = False
-                                break
-                    if (check):
-                        centerWhite += 1
+                    if (check): centerWhite += 1
                 elif (self.board[i][j] == Cell.COLLISION):
                     collision += 1
-                elif (self.board[i][j] == Cell.BLACK_ZERO 
-                or self.board[i][j] == Cell.BLACK_ONE
-                or self.board[i][j] == Cell.BLACK_TWO 
-                or self.board[i][j] == Cell.BLACK_THREE
-                or self.board[i][j] == Cell.BLACK_FOUR):
+                elif (self.board[i][j] <= Cell.BLACK_FOUR or self.board[i][j] > Cell.FORBIDDEN):
                     lampCount = 0
                     blackNumber = self.board[i][j]
+                    if (self.board[i][j] > Cell.FORBIDDEN): blackNumber = self.board[i][j] / 100
                     for k in range (4):
                         nextRow = i + movement[0][k]
                         nextCol = j + movement[1][k]
@@ -156,6 +151,7 @@ class Board:
                             if (self.board[i][j] == Cell.BLACK_THREE):
                                 endBlack += 1
         fitness += (collision * punishments[0] + blackLamp * punishments[1] + whiteTiles * punishments[2] + endBlack * punishments[3] + centerWhite * punishments[4])
+        self.violation = [collision, whiteTiles, blackLamp, centerWhite, endBlack]
         # print (self.board)
         # print ("COLLISION = ", collision)
         # print ("BLACK LAMP = ", blackLamp)
@@ -163,10 +159,6 @@ class Board:
         # print ("END BLACK = ", endBlack)
         # print ("CENTER WHITE = ", centerWhite)
         return fitness
-
-    # return board fitness
-    def getFitness (self):
-        pass
 
     # put a lamp on (row, col) board position
     def putSingleLamp (self, rowPos, colPos):
@@ -206,7 +198,7 @@ class Board:
         # light downside
         for i in range (rowPos+1, self.rowSize):
             if (i >= 0 and i < self.rowSize):
-                if (self.board[i][colPos] <= Cell.BLACK_ANY or self.board[rowPos][i] > Cell.FORBIDDEN):
+                if (self.board[i][colPos] <= Cell.BLACK_ANY or self.board[i][colPos] > Cell.FORBIDDEN):
                     break
                 elif (self.board[i][colPos] == Cell.WHITE_EMPTY or self.board[i][colPos] == Cell.FORBIDDEN):
                     self.board[i][colPos] = Cell.YELLOW
@@ -216,7 +208,7 @@ class Board:
         # light upside
         for i in range (rowPos-1, -1, -1):
             if (i >= 0 and i < self.rowSize):
-                if (self.board[i][colPos] <= Cell.BLACK_ANY or self.board[rowPos][i] > Cell.FORBIDDEN):
+                if (self.board[i][colPos] <= Cell.BLACK_ANY or self.board[i][colPos] > Cell.FORBIDDEN):
                     break
                 elif (self.board[i][colPos] == Cell.WHITE_EMPTY or self.board[i][colPos] == Cell.FORBIDDEN):
                     self.board[i][colPos] = Cell.YELLOW
@@ -249,7 +241,7 @@ class Board:
                         nextRow = i + movement[0][k]
                         nextCol = j + movement[1][k]
                         if (nextRow >= 0 and nextCol >= 0 and nextRow < self.rowSize and nextCol < self.colSize):
-                            if (self.board[nextRow][nextCol] <= Cell.BLACK_FOUR):
+                            if (self.board[nextRow][nextCol] <= Cell.BLACK_FOUR or self.board[nextRow][nextCol] > Cell.FORBIDDEN):
                                 check = False
                     if (check):
                             whitePosition.append([i, j])
@@ -277,7 +269,9 @@ class Board:
             for j in range (self.colSize):
                 if (self.board[i][j] <= Cell.BLACK_FOUR and self.board[i][j] > Cell.BLACK_ZERO):
                     countWhite = 0
+                    countLamp = 0
                     whitePosition = []
+                    remaining = self.board[i][j]
                     for k in range (4):
                         nextRow = i + movement[0][k]
                         nextCol = j + movement[1][k]
@@ -285,12 +279,27 @@ class Board:
                             if (self.board[nextRow][nextCol] == Cell.WHITE_EMPTY):
                                 countWhite += 1
                                 whitePosition.append([nextRow, nextCol])
-                    if (countWhite == self.board[i][j]):
+                            elif (self.board[nextRow][nextCol] == Cell.LAMP):
+                                countLamp += 1
+                                remaining -= 1
+
+                    if (countLamp == self.board[i][j]): self.board[i][j] *= 100
+                    elif (countWhite == remaining):
                         check = True
                         for white in whitePosition:
                             self.putSingleLamp(white[0], white[1])
                         self.board[i][j] *= 100
-                        #print (self.board, '\n')
+                        print (self.board, '\n')
+                elif (self.board[i][j] == Cell.WHITE_EMPTY):
+                    checkWhiteCenter = True
+                    for k in range (4):
+                        nextRow = i + movement[0][k]
+                        nextCol = j + movement[1][k]
+                        if (nextRow >= 0 and nextCol >= 0 and nextRow < self.rowSize and nextCol < self.colSize):
+                            if (self.board[nextRow][nextCol] > Cell.BLACK_ANY):
+                                checkWhiteCenter = False
+                                break
+                    if (checkWhiteCenter): self.putSingleLamp(i, j)
         
         return check
     
@@ -305,7 +314,7 @@ class Board:
                         nextRow = i + movement[0][k]
                         nextCol = j + movement[1][k]
                         if (nextRow >= 0 and nextCol >= 0 and nextRow < self.rowSize and nextCol < self.colSize):
-                            if (self.board[nextRow][nextCol] <= Cell.BLACK_FOUR):
+                            if (self.board[nextRow][nextCol] <= Cell.BLACK_FOUR or self.board[nextRow][nextCol] > Cell.FORBIDDEN):
                                 check = False
                     if (check):
                             whitePosition.append([i, j])
@@ -322,3 +331,59 @@ class Board:
     # this method is required for Wolf to know on what dimension they used
     def getDimension (self):
         return self.dimension
+    
+    def fillWhitesOnLastAttempt (self):
+        allCheck = False
+        for i in range (self.rowSize):
+            for j in range (self.colSize):
+                if (self.board[i][j] == Cell.WHITE_EMPTY):
+                    check = True
+
+                    # check rightside
+                    check2 = True
+                    for k in range (j+1, self.colSize):
+                        if (k >= 0 and k < self.colSize):
+                            if (self.board[i][k] == Cell.LAMP or self.board[i][k] == Cell.COLLISION):
+                                check = False
+                                break
+                            elif (self.board[i][k] <= Cell.BLACK_ANY or self.board[i][k] > Cell.FORBIDDEN):
+                                break
+
+                    if not check: continue
+
+                    # check leftside
+                    for k in range (j-1, -1, -1):
+                        if (k >= 0 and k < self.colSize):
+                            if (self.board[i][k] == Cell.LAMP or self.board[i][k] == Cell.COLLISION):
+                                check = False
+                                break
+                            elif (self.board[i][k] <= Cell.BLACK_ANY or self.board[i][k] > Cell.FORBIDDEN):
+                                break
+
+                    if not check: continue
+                    
+                    # check downside
+                    for k in range (i+1, self.rowSize):
+                        if (k >= 0 and k < self.rowSize):
+                            if (self.board[k][j] == Cell.LAMP or self.board[k][j] == Cell.COLLISION):
+                                check = False
+                                break
+                            elif (self.board[k][j] <= Cell.BLACK_ANY or self.board[k][j] > Cell.FORBIDDEN):
+                                break
+
+                    if not check: continue
+
+                    # check upside
+                    for k in range (i-1, -1, -1):
+                        if (k >= 0 and k < self.rowSize):
+                            if (self.board[k][j] == Cell.LAMP or self.board[k][j] == Cell.COLLISION):
+                                check = False
+                                break
+                            elif (self.board[k][j] <= Cell.BLACK_ANY or self.board[k][j] > Cell.FORBIDDEN):
+                                break
+                    
+                    if not check: continue
+                    else: 
+                        self.putSingleLamp(i, j)
+                        allCheck = True
+        return allCheck
